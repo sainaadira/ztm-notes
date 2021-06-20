@@ -5,6 +5,8 @@
  doubly linked - same but points to node before and after it
 *******************************************************/
 
+const { validateExpressRequest } = require("twilio/lib/webhooks/webhooks")
+
 // BIG O REFERENCE:
 // PREPEND - O(1) -- add to beginning
 // APPEND -  O(1) -- add to end
@@ -100,16 +102,39 @@ class LinkedList {
     }
     return array
   }
-  // insert(index, value) {
-
-  // }
+  insert(index, value) {
+    // check params
+    if (index >= this.length) {
+      return this.append(value)
+    }
+    const newNode = {
+      value: value,
+      next: null
+    }
+    const leaderNode = this.traverseToIndex(index - 1)
+    const holdingPointer = leaderNode.next
+    leaderNode.next = newNode
+    newNode.next = holdingPointer
+    this.length++
+    return this.printList()
+  }
+  traverseToIndex(index) {
+    // check params
+    let counter = 0
+    let currentNode = this.head
+    while (counter !== index) {
+      currentNode = currentNode.next
+      counter++
+    }
+    return currentNode
+  }
 }
 
 const myLinkedlist = new LinkedList(10)
 myLinkedlist.append(5)
 myLinkedlist.append(16)
 myLinkedlist.prepend(1)
-// myLinkedlist.insert(2, 99)
+myLinkedlist.insert(2, 99)
 myLinkedlist.printList()
 
 
