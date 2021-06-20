@@ -10,7 +10,16 @@ a review:
 when you invoke a function you get acces to 'this' and arguments object (better to use spread vs rest parameter)
 
 when we define functions the compiler looks at code, lexically and it determines which variables are accessible in the variable enviornment and it also adds scope chains
+
+functions are a special type of object that have code, name and properties. they are callable and can be passed around like objects
+
+sumFunc()
+code() - when invoeked, code inside is read and executed
+name(optional) - functions can be named or anonymous
+properties: call(), bind(), apply()
  */
+
+
 
 // ways of creating and invoking functions
 
