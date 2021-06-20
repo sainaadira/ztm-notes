@@ -101,29 +101,43 @@ class LinkedList {
     return array
   }
   insert(index, value) {
-    // check params
+    //  make sure its an index is a value 
+    // that is understood: if index is greater than or equal to length
     if (index >= this.length) {
+      // append value to the end of the list
       return this.append(value)
     }
+    // creating new node
     const newNode = {
       value: value,
       next: null
     }
+    // first node: new method that gets last index 
     const leaderNode = this.traverseToIndex(index - 1)
+    //grabs the next item in list: makes sure connections work properly -- 5 is referenced in holding pointer variable
     const holdingPointer = leaderNode.next
+    // leader can now point to the new node rend remove reference to 5
     leaderNode.next = newNode
+    // new node now equals 5
     newNode.next = holdingPointer
+    // added to the list increments by 1
     this.length++
+    // print the list
     return this.printList()
   }
   traverseToIndex(index) {
-    // check params
     let counter = 0
+    // current node is the head
     let currentNode = this.head
+    // while counter does not equal the index
+    // keep traversing from head til counter is equal to the index
     while (counter !== index) {
+      // current node moves over to the right
       currentNode = currentNode.next
+      // increment counter one by one
       counter++
     }
+    // return current node
     return currentNode
   }
 }
@@ -151,4 +165,7 @@ LinkedList {
   length: 4
 }
  */
+
+/* insert output */
+//[1, 10, 99, 5, 16]
 
