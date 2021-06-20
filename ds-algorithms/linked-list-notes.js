@@ -140,6 +140,18 @@ class LinkedList {
     // return current node
     return currentNode
   }
+
+  remove(index) {
+    // grab the leader
+    const leaderNode = this.traverseToIndex(index - 1)
+    // reference to the unwanted node
+    const nodeToDelete = leaderNode.next
+    // leader node is now the node to be deleted
+    leaderNode.next = nodeToDelete.next
+    // decrement length by 1 since item is being removed
+    this.length--
+    return this.printList()
+  }
 }
 
 const myLinkedlist = new LinkedList(10)
@@ -147,6 +159,7 @@ myLinkedlist.append(5)
 myLinkedlist.append(16)
 myLinkedlist.prepend(1)
 myLinkedlist.insert(2, 99)
+myLinkedlist.remove(2)
 myLinkedlist.printList()
 
 
@@ -168,4 +181,7 @@ LinkedList {
 
 /* insert output */
 //[1, 10, 99, 5, 16]
+
+/* remove output */
+//[1, 10, 5, 16]
 
