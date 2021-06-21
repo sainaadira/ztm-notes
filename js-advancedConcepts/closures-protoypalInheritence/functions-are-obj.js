@@ -72,3 +72,61 @@ four(4)
 
 
 
+//functions are first class citizen's 
+
+// functions can be assigned to variables and properties in objects
+var stuff = () => { }
+
+// you can pass functions as arguments
+// passing a function as a parameter to another function
+function a(anotherOne) {
+  anotherOne()
+}
+a(() => { console.log('hello!') })
+
+// you can return functions as values as other functions
+
+function b() {
+  return function c() {
+    console.log(`hey, i'm function c`)
+  }
+}
+b() // returns [Function: c]
+b()() // running it again returns `hey, i'm function c`
+// or you can assign function b to a variable and call that variable
+var d = b()
+d()
+
+
+/* some things you want to watch out for in functions
+
+be careful of initalizing inside of loops
+when i = 0 - 4; function gets initalized
+
+for(let i = 0; i < 5; i++){
+ function a(){
+
+  }
+  a()
+}
+
+instead move function to the top to initalize function just once
+and then you loop over it, you're executing it 4 times
+ function a(){
+
+  }
+
+
+  for(let i = 0; i < 5; i++){
+ a()
+}
+
+// another thing to look out for is when returning a parameter
+it is best to have default parameters to solve edge case
+
+function example(param = 5){
+  return param
+}
+example() // prints 5
+
+*/
