@@ -185,3 +185,144 @@ LinkedList {
 /* remove output */
 //[1, 10, 5, 16]
 
+
+/*******************************************************
+                  DOUBLY LINKED LISTS
+      allows for reverse list traversal but downside it
+      uses an additional block of memory because there is
+      datum that holds reference to previous node
+*******************************************************/
+
+class DoublyLinkedList {
+  // creates head or very first node
+  constructor(value) {
+    this.head = {
+      value: value,
+      next: null,
+      // to make it doubly linked, reference to previous node
+      previous: null
+    }
+    this.tail = this.head
+    //this is optional
+    this.length = 1
+  }
+  append(value) {
+    //creates new node with properies in constructor
+    // need to add previus property
+
+    const newNode = {
+      value: value,
+      next: null,
+      previous: null
+    }
+    // previous node now equals to tail
+    newNode.previous = this.tail
+    // graps the tail and the pointer of the tail and points to new created node
+    this.tail.next = newNode
+    // the tail is now going to equal the new node
+    this.tail = newNode
+    this.length++
+    return this
+  }
+  prepend(value) {
+    // creating an empty node with the value
+    const newNode = {
+      value: value,
+      next: null,
+      previous: null
+    }
+    newNode.previous = this.head
+    // new node with pointer to next node is now the head node
+    newNode.next = this.head
+    // the head is equal to newly created node (firstNode)
+    this.head = newNode
+    // increment length by one
+    this.length++
+    // return linked list
+    return this
+  }
+
+  printList() {
+    const array = []
+    // current node is the head node in the list
+    let currentNode = this.head
+    //while loop: while condition is happening, run below commands
+    // as long as there is a current node that doesnt point to null
+    while (currentNode !== null) {
+      // add to array the value of the current node
+      array.push(currentNode.value)
+      // then update the current node to equal next until null is reached
+      currentNode = currentNode.next
+    }
+    return array
+  }
+  insert(index, value) {
+    //  make sure its an index is a value 
+    // that is understood: if index is greater than or equal to length
+    if (index >= this.length) {
+      // append value to the end of the list
+      return this.append(value)
+    }
+    // creating new node
+    const newNode = {
+      value: value,
+      next: null,
+      previous: null
+    }
+
+    // reference arr [1, 10, 5, 16] => [1,10, 99, 5, 16]
+    // first node: new method that gets last index 
+    const leaderNode = this.traverseToIndex(index - 1)
+    //grabs the next item in list: makes sure connections work properly -- 5 is references the number that comes after the leader
+    const follower = leaderNode.next
+    // leaderNode references 99 to be inserted
+    leaderNode.next = newNode
+    // making sure previous node = 10
+    newNode.previous = leader
+    // new node now equals 5 because it followed after 10s
+    newNode.next = follower
+    // making sure 5 has a previous value that points to newNode = 99
+    follower.previous = newNode
+    this.length++
+    // print the list
+    return this.printList()
+  }
+  traverseToIndex(index) {
+    let counter = 0
+    // current node is the head
+    let currentNode = this.head
+    // while counter does not equal the index
+    // keep traversing from head til counter is equal to the index
+    while (counter !== index) {
+      // current node moves over to the right
+      currentNode = currentNode.next
+      // increment counter one by one
+      counter++
+    }
+    // return current node
+    return currentNode
+  }
+
+  remove(index) {
+    // grab the leader
+    const leaderNode = this.traverseToIndex(index - 1)
+    // reference to the unwanted node
+    const nodeToDelete = leaderNode.next
+    // follower node now = node to  be deleted
+    const follower = nodeToDelete.next
+    // leader node is now the node to be deleted
+    leaderNode.next = follower
+    follower.previous = leaderNode
+    this.length--
+    return this
+  }
+}
+
+
+const myLinkedlist = new DoublyLinkedList(10)
+myLinkedlist.append(5)
+myLinkedlist.append(16)
+myLinkedlist.prepend(1)
+myLinkedlist.insert(1, 99)
+myLinkedlist.remove(2)
+myLinkedlist.printList()
