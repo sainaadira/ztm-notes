@@ -48,7 +48,7 @@ const makeNuclearButton = () => {
   setInterval(passTime, 1000)
 
   return {
-    // you want to hide this function so no one else in the outside world has access to it to 
+    // you want to hide this function so no one else in the outside world has access to it 
     // launch: launch,
     totalPeaceTime: totalPeaceTime
   }
