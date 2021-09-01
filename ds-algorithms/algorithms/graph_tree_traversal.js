@@ -190,8 +190,60 @@ class BinarySearchTree {
     }
     return this.breadthFirstSearchR(queue, list)
   }
+
+  DFSInOrder() {
+    return traverseInOrder(this.root, [])
+  }
+  DFSPostOrder() {
+    return traversePostOrder(this.root, [])
+  }
+  DFSPreOrder() {
+    return traversePreOrder(this.root, [])
+  }
 }
 
+const traverseInOrder = (node, list) => {
+  // if there is a left child node,
+  if (node.left) {
+    // traverse all the way down the branch until there are no more children
+    traverseInOrder(node.left, list)
+  }
+  // once there are no more, push the value to the list
+  list.push(node.value)
+  if (node.right) {
+    traverseInOrder(node.right, list)
+  }
+  return list
+}
+
+
+const traversePreOrder = (node, list) => {
+  // pushes the parent (9) into the list first
+  list.push(node.value)
+  if (node.left) {
+    // traverse all the way down the branch until there are no more children
+    traversePreOrder(node.left, list)
+  }
+
+  if (node.right) {
+    traversePreOrder(node.right, list)
+  }
+  return list
+}
+
+const traversePostOrder = (node, list) => {
+
+  list.push(node.value)
+  if (node.left) {
+    traversePostOrder(node.left, list)
+  }
+
+  if (node.right) {
+    traversePostOrder(node.right, list)
+  }
+  list.push(node.value)
+  return list
+}
 //     9
 //  4     20
 //1  6  15  170
